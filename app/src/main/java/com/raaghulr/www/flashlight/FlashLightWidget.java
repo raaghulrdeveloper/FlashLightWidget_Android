@@ -1,8 +1,10 @@
 package com.raaghulr.www.flashlight;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 /**
@@ -13,13 +15,16 @@ public class FlashLightWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-
+        Intent receiver = new Intent(context, FlashlightWidgetReceiver.class);
+        receiver.setAction("COM_FLASHLIGHT");
+        receiver.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetId);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, receiver, 0);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.flash_light_widget);
-
-
+        views.setOnClickPendingIntent(R.id.imageButton, pendingIntent);
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
+
     }
 
     @Override

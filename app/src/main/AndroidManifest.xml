@@ -2,13 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.raaghulr.www.flashlight">
 
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".FlashLightWidget">
+        <receiver android:name=".FlashLightWidget" android:icon="@drawable/flash_light_on" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -16,6 +18,14 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/flash_light_widget_info" />
+        </receiver>
+
+
+
+        <receiver android:name="FlashlightWidgetReceiver">
+            <intent-filter>
+                <action android:name="COM_FLASHLIGHT"></action>
+            </intent-filter>
         </receiver>
     </application>
 
